@@ -1,0 +1,4 @@
+open schema FG_SECURITY;
+CREATE OR REPLACE LUA SCRIPT "GM_WRAPPER_SCRIPT_OBFUSCATE" () RETURNS ROWCOUNT AS import( 'fg_security.gmpreprocessorscript_obfuscate', 'gmpreprocessorscript_obfuscate') -- second parameter is just an alias sqlparsing.setsqltext(
+gmpreprocessorscript_obfuscate.gm_preprocessor_function_obfuscate(sqlparsing.getsqltext()))
+/

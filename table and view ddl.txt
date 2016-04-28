@@ -1,0 +1,14 @@
+open schema FG_SECURITY;
+CREATE TABLE ROLE_OBFUSCATE (
+    ROLE_NAME            VARCHAR(128) UTF8 NOT NULL ENABLE,
+    SENSITIVE_TABLE_NAME VARCHAR(128) UTF8 NOT NULL ENABLE,
+    SECURE_VIEW_NAME     VARCHAR(128) UTF8 NOT NULL ENABLE,
+    CREATE_DATE          TIMESTAMP DEFAULT SYSTIMESTAMP NOT NULL ENABLE,
+    CREATED_BY           VARCHAR(40) UTF8 DEFAULT CURRENT_USER NOT NULL ENABLE
+);
+
+
+open schema FG_SECURITY;
+CREATE OR REPLACE VIEW "FG_SECURITY"."TABLE_OBFUSCATE"
+as
+select distinct sensitive_table_name, secure_view_name from role_obfuscate r join exa_user_role_privs p on (p.granted_role=r.role_name);
